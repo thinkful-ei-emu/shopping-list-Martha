@@ -8,9 +8,6 @@ class items{
     this.name=Name;
     this.checked = Checked;
   }
-  sell(){
-    console.log('sold for' + this.price);
-  }
 }
 
 const STORE = [
@@ -26,6 +23,7 @@ const STORE = [
  * @returns{null}
  */
 function render(){
+  console.log('render working');
 //create and display html
   let htmlCode = STORE.map(function(element){
     if(element.checked){
@@ -66,19 +64,22 @@ function addItem(){
     event.preventDefault();
     let userInput =$(event.target).parent().find('.js-shopping-list-entry').val();
     STORE.push(new items(userInput));
-    //console.log(STORE);
+    console.log(STORE);
   });
 }
 
 function deleteItem(){
 //on user input,removes items to the store
-$('.shopping-list').on('click', '.shopping-item-delete', event => {
-  event.preventDefault();
-  $(event.currentTarget).closest('li').remove();
+  $('.shopping-list').on('click', '.shopping-item-delete', event => {
+    event.preventDefault();
+    $(event.currentTarget).closest('li').remove();
+  });
 }
-function checkItem(){
-//on user input, toggle the state of the item
-}
+
+// function checkItem(){
+// //on user input, toggle the state of the item
+// }
+
 function main(){
   addItem();
   render();
