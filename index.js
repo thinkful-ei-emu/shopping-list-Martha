@@ -1,7 +1,4 @@
-/* eslint-disable no-console */
-//
 'use strict';
-/* eslint-env jquery */
 
 class items{
   constructor(Name,Checked= false){
@@ -17,13 +14,7 @@ const STORE = [
   new items('bread') 
 ];
 
-/**
- * @param{array} store objects
- * 
- * @returns{null}
- */
-function render(){
-  console.log('render working');
+function renderPage(){
 //create and display html
   let htmlCode = STORE.map(function(element){
     if(element.checked){
@@ -76,14 +67,19 @@ function deleteItem(){
   });
 }
 
-// function checkItem(){
-// //on user input, toggle the state of the item
-// }
+function checkItem(){
+//on user input, toggle the state of the item
+  $('.shopping-list').on('click', '.shopping-item-toggle', event => {
+    event.preventDefault();
+    $(event.currentTarget).closest('li').find('.shopping-item').toggleClass('shopping-item__checked');
+  });
+}
 
 function main(){
   addItem();
-  render();
+  renderPage();
   deleteItem();
+  checkItem();
 }
 
 $(main);
