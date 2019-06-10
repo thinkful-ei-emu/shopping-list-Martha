@@ -222,8 +222,9 @@ function handleShoppingList() {
   handleItemCheckClicked();
   handleDeleteItemClicked();
   handleToggleHideFilter();
-  handleRenameItem();
+  handleSearchSubmit();
   handleSearchClear();
+  //handleItemNameClick();
   handleSearchSubmit();
 }
 
