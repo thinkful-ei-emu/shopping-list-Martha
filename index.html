@@ -18,11 +18,19 @@
             <button type="submit">Add item</button>
         </form>
 
+        <div class="filter-search-term">
+            <form id="js-search-term-form">
+                <input type="text" name="search-term" class="js-search-term" />
+                <button type="submit">Search</button>
+                <button id="search-form-clear" type="button">Clear</button>
+            </form>
+        </div>
+
         <div class="filter-controls">
             <input type="checkbox" id="hide-completed-toggle" class="js-hide-completed-toggle" />
             <label for="hide-completed-toggle">Hide Completed</label>
         </div>
-        
+
         <ul class="shopping-list js-shopping-list">
         </ul>
     </div>

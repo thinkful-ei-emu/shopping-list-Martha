@@ -135,7 +135,7 @@ function deleteListItem(itemId) {
 
   // as with `addItemToShoppingLIst`, this function also has the side effect of
   // mutating the global STORE value.
-  //
+
   // First we find the index of the item with the specified id using the native
   // Array.prototype.findIndex() method. Then we call `.splice` at the index of 
   // the list item we want to remove, with a removeCount of 1.
@@ -172,20 +172,43 @@ function handleToggleHideFilter() {
 }
 
 //what the rename button does
-function renameItem(itemRename){
-  let renameItem = prompt('Rename your item');
-  
-  
-
-  $(itemRename.name).replaceWith(renameItem);
+function renameItem(newName, item){
+  //manipulating the STORE (changing item.name to newItem.name)
+  item.name = newName;
+  renderShoppingList();
 }
 
 //elistener for user clicking rename button
 function handleRenameItem(){
   $('.js-shopping-list').on('click', '.js-item-rename', event => {
-    renameItem();
-    renderShoppingList();
+    const itemInStore = getItemIdFromElement(event.currentTarget);
+    const item = STORE.items.find(item => item.id === itemInStore);
+    let newName = prompt('Rename your item');
+    renameItem(newName, item);
   }); 
+}
+
+// Sets STORE.searchTerm to inputted param
+function setSearchTerm(searchTerm) {
+  STORE.searchTerm = searchTerm;
+}
+
+// Places an event listener on the search form to filter the item list
+function handleSearchSubmit() {
+  $('#js-search-term-form').on('submit', event => {
+    event.preventDefault();
+    const searchTerm = $('.js-search-term').val();
+    setSearchTerm(searchTerm);
+    renderShoppingList();
+  });
+}
+
+// Places an event listener on the search term clear button to clear the input
+function handleSearchClear() {
+  $('#search-form-clear').on('click', () => {
+    setSearchTerm('');
+    renderShoppingList();
+  });
 }
 
 
@@ -200,6 +223,8 @@ function handleShoppingList() {
   handleDeleteItemClicked();
   handleToggleHideFilter();
   handleRenameItem();
+  handleSearchClear();
+  handleSearchSubmit();
 }
 
 // when the page loads, call `handleShoppingList`
