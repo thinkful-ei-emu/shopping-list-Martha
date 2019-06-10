@@ -22,7 +22,8 @@ const STORE = {
   ],
   //new property that communicates if the item is checked or not
   //is a checkbox, if checked the hide, item defualt is not checked
-  hideCompleted: false
+  hideCompleted: false,
+  searchTerm: null,
 };
 
 //html shell for list items
@@ -70,6 +71,16 @@ function renderShoppingList() {
   if (STORE.hideCompleted) {
     filteredItems = filteredItems.filter(item => !item.checked);
   }
+
+  // Make sure the search form input matches the current STORE entry
+  $('.js-search-term').val(STORE.searchTerm);
+
+  // if `searchTerm` property is not null, then we want to reassign filteredItems to a version that
+  // scans the item name for the searchTerm substring
+  if (STORE.searchTerm) {
+    filteredItems = filteredItems.filter(item => item.name.includes(STORE.searchTerm));
+  }
+
 
   // at this point, all filtering work has been done (or not done, if that's the current settings), so
   // we send our `filteredItems` into our HTML generation function 
